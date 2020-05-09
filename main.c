@@ -2,19 +2,22 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-struct ucluKod
+typedef struct
 {
     int uzaklik;
     int benzerlik;
     char takipTekrari;
 
-};
+} ucluKod;
 void dosya_okuma();
 int dosyanin_uzunlugu=0;
 char *ileri_tampon;
-struct ucluKod *veriler;
+ucluKod *veriler;
+int sayac=0;
+
 void main()
 {
+    //veriler=(ucluKod*)malloc(1*sizeof(ucluKod));
     dosya_okuma();
     LZ77();
 
@@ -32,42 +35,71 @@ void LZ77()
     //printf("%s %d",arama_tampon,strlen(arama_tampon));
     while(strlen(temp_i_tampon)>0)
     {
-            int i=0;
-            benzerlik_sayisi=0;
-            uzaklik=0;
-            for(int j=strlen(arama_tampon); j>=0 ; j--)
+        int i=0;//her seferinde temp_i_tamponu ilk karakterden baslatip kontrol etmek icin.
+        int varmi=0;//benzerlik buunursa bu deger 1 olur.
+        benzerlik_sayisi=0;//kac adae karakterin benedigini tutar.
+        uzaklik=0;//karakterin uzakligini tutar.
+        int index=strlen(arama_tampon);//i=0 icin arama tamponundaki benzerlik yerini tutar.
+
+        for(int j=strlen(arama_tampon); j>=0 ; j--)
+        {
+            if(arama_tampon[j]==temp_i_tampon[i])
             {
-
-                if(arama_tampon[j]==temp_i_tampon[i])
-                {
-
-                    benzerlik_sayisi++;
-                    uzaklik=j;
-                }
-
+                uzaklik=strlen(arama_tampon)-j;
+                varmi=1;
+                index=j;
             }
-            if(benzerlik_sayisi==0)
+        }
+        if(varmi==1)
+        {
+            //benzerlik varsa yapilan islemler
+            char str[2];
+            str[0] = 0;
+            str[1] = '\0';
+            benzerlik_sayisi++;//1
+            int x=index+1,y=1;
+            while(arama_tampon[x]==temp_i_tampon[y])
             {
-                char str[2];
-                str[0] = temp_i_tampon[i];
-                str[1] = '\0';
+                benzerlik_sayisi++;
+                x++;
+                y++;
+            }
+            for(int k=0; k<=benzerlik_sayisi; k++)//benzerlik kadar karakteri arama tamponuna ekler
+            {
+                str[0] = temp_i_tampon[k];
                 strcat(arama_tampon,str);
-                /*veriler->benzerlik=benzerlik_sayisi;
-                veriler->uzaklik=uzaklik;
-                veriler->takipTekrari=temp_i_tampon[i+benzerlik_sayisi];*/
-
-                for(int k=0; k<strlen(temp_i_tampon); k++)
-                {
-                    temp_i_tampon[k]=temp_i_tampon[k+1];
-                }
-                printf("%s %d %s\n",arama_tampon,strlen(arama_tampon),temp_i_tampon);
-
             }
 
+        }
+        else     //benzerlik yoksa yapilan islemler;
+        {
+            char str[2];
+            str[0] = temp_i_tampon[i];
+            str[1] = '\0';
+            strcat(arama_tampon,str);
+
+        }
+        veriler=(ucluKod*)realloc(veriler,(sayac+1)*sizeof(ucluKod));
+
+        veriler[sayac].benzerlik=benzerlik_sayisi;
+        veriler[sayac].uzaklik=uzaklik;
+        veriler[sayac].takipTekrari=temp_i_tampon[i+benzerlik_sayisi];
+        sayac++;
+        for(int k=0; k<=benzerlik_sayisi; k++)//arama_tampona eklenilen karakterleri temp_i_tampondan siler.
+        {
+            for(int k=0; k<strlen(temp_i_tampon); k++)
+            {
+                temp_i_tampon[k]=temp_i_tampon[k+1];
+            }
+
+        }
+        printf("%s %d %s\n",arama_tampon,strlen(arama_tampon),temp_i_tampon);
+
+        printf("\n(%d,%d,%c)\n",veriler[sayac-1].uzaklik,veriler[sayac-1].benzerlik,veriler[sayac-1].takipTekrari);
     }
-    //printf("%d %d %s",veriler->uzaklik,veriler->benzerlik,veriler->takipTekrari);
 
 }
+
 void dosya_okuma()
 {
     FILE *dosya=fopen("input.txt","r");
