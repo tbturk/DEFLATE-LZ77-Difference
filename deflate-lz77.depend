@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1588969431 source:c:\users\lenovo\desktop\deflate-lz77-difference\main.c
+1589042427 source:c:\users\lenovo\desktop\deflate-lz77-difference\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>

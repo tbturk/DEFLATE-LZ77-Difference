@@ -12,8 +12,6 @@ struct ucluKod
 void dosya_okuma();
 int dosyanin_uzunlugu=0;
 char *ileri_tampon;
-char *arama_tampon;
-int benzerlik_sayisi=0;
 struct ucluKod *veriler;
 void main()
 {
@@ -25,28 +23,59 @@ void main()
 void LZ77()
 {
     char *temp_i_tampon=(char *)malloc((strlen(ileri_tampon)+1)*sizeof(char));
-
+    int benzerlik_sayisi=0;
+    int uzaklik=0;
     strcpy(temp_i_tampon,ileri_tampon);
-    arama_tampon=(char *)malloc((strlen(temp_i_tampon)+1)*sizeof(char));
-   // printf("%d %d",strlen(temp_i_tampon),dosyanin_uzunlugu);
-   // printf("%s",temp_i_tampon);
-   // printf("%d",strlen(temp_i_tampon));
-   // printf("%s",temp_i_tampon);
+    //printf("%d %d",strlen(temp_i_tampon),dosyanin_uzunlugu);
+    char *arama_tampon=(char *)malloc((strlen(ileri_tampon)+1)*sizeof(char));
+    sprintf(arama_tampon, "");
+    printf("%s %d",arama_tampon,strlen(arama_tampon));
+    while(strlen(temp_i_tampon)>0)
+    {
 
-    while(strlen(temp_i_tampon)>0){
+        for(int i=0; i<strlen(temp_i_tampon); i++)
+        {
+            benzerlik_sayisi=0;
+            uzaklik=0;
+            for(int j=strlen(arama_tampon); j>=0 ; j--)
+            {
 
-       for(int i=0;i<strlen(temp_i_tampon);i++){
+                if(arama_tampon[j]==temp_i_tampon[i])
+                {
+
+                    benzerlik_sayisi++;
+                    uzaklik=j;
+                }
+
+            }
+            if(benzerlik_sayisi==0)
+            {
+                arama_tampon[0]=temp_i_tampon[0];
+                //char* tmp*="a";
+                //sprintf(tmp, temp_i_tampon[i]);
+                 //printf("batu");
+                //printf(tmp);
+                //strcat(arama_tampon, tmp);
+                /*veriler->benzerlik=benzerlik_sayisi;
+                veriler->uzaklik=uzaklik;
+                veriler->takipTekrari=temp_i_tampon[i+benzerlik_sayisi];*/
+
+                for(int k=0; k<strlen(temp_i_tampon); k++)
+                {
+                    temp_i_tampon[k]=temp_i_tampon[k+1];
+                }
+                printf("%s %d",arama_tampon,strlen(arama_tampon));
+
+                exit(0);
+
+            }
 
 
 
-       }
-
+        }
 
     }
-
-
-
-
+    //printf("%d %d %s",veriler->uzaklik,veriler->benzerlik,veriler->takipTekrari);
 
 }
 void dosya_okuma()
