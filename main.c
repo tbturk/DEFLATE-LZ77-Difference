@@ -20,21 +20,19 @@ void main()
 
     return 0;
 }
+
 void LZ77()
 {
-    char *temp_i_tampon=(char *)malloc((strlen(ileri_tampon)+1)*sizeof(char));
     int benzerlik_sayisi=0;
     int uzaklik=0;
+    char *temp_i_tampon=(char *)malloc((strlen(ileri_tampon)+1)*sizeof(char));
     strcpy(temp_i_tampon,ileri_tampon);
-    //printf("%d %d",strlen(temp_i_tampon),dosyanin_uzunlugu);
     char *arama_tampon=(char *)malloc((strlen(ileri_tampon)+1)*sizeof(char));
     sprintf(arama_tampon, "");
-    printf("%s %d",arama_tampon,strlen(arama_tampon));
+    //printf("%s %d",arama_tampon,strlen(arama_tampon));
     while(strlen(temp_i_tampon)>0)
     {
-
-        for(int i=0; i<strlen(temp_i_tampon); i++)
-        {
+            int i=0;
             benzerlik_sayisi=0;
             uzaklik=0;
             for(int j=strlen(arama_tampon); j>=0 ; j--)
@@ -50,12 +48,10 @@ void LZ77()
             }
             if(benzerlik_sayisi==0)
             {
-                arama_tampon[0]=temp_i_tampon[0];
-                //char* tmp*="a";
-                //sprintf(tmp, temp_i_tampon[i]);
-                 //printf("batu");
-                //printf(tmp);
-                //strcat(arama_tampon, tmp);
+                char str[2];
+                str[0] = temp_i_tampon[i];
+                str[1] = '\0';
+                strcat(arama_tampon,str);
                 /*veriler->benzerlik=benzerlik_sayisi;
                 veriler->uzaklik=uzaklik;
                 veriler->takipTekrari=temp_i_tampon[i+benzerlik_sayisi];*/
@@ -64,15 +60,9 @@ void LZ77()
                 {
                     temp_i_tampon[k]=temp_i_tampon[k+1];
                 }
-                printf("%s %d",arama_tampon,strlen(arama_tampon));
-
-                exit(0);
+                printf("%s %d %s\n",arama_tampon,strlen(arama_tampon),temp_i_tampon);
 
             }
-
-
-
-        }
 
     }
     //printf("%d %d %s",veriler->uzaklik,veriler->benzerlik,veriler->takipTekrari);
