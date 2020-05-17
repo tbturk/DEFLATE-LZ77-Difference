@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1589042427 source:c:\users\lenovo\desktop\deflate-lz77-difference\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+
+1589672770 source:c:\users\bthn0\desktop\deflate-lz77-difference\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	<stdint.h>
+
+<<<<<<< HEAD
+1589729092 source:c:\users\bthn0\desktop\deflate-lz77-difference - kopya\main.c
+=======
+1589724448 source:c:\users\bthn0\desktop\deflate-lz77-difference - kopya\main.c
+>>>>>>> master
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	<stdint.h>
+
