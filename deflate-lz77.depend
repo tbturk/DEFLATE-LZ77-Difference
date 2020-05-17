@@ -12,7 +12,11 @@
 	<ctype.h>
 	<stdint.h>
 
+<<<<<<< HEAD
 1589729092 source:c:\users\bthn0\desktop\deflate-lz77-difference - kopya\main.c
+=======
+1589724448 source:c:\users\bthn0\desktop\deflate-lz77-difference - kopya\main.c
+>>>>>>> master
 	<stdio.h>
 	<stdlib.h>
 	<string.h>

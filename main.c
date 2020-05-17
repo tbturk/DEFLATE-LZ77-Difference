@@ -30,9 +30,15 @@ void dosya_okuma();     //Orijinal metni input.txt'den okuyan fonksiyon.
 void lz77_dosya_yazma();    //sifrelenmis metni output.txt ye binary olarak yazan fonksiyon.
 void lz77();                //Orijinal metni lzz7 ile sifreleyen fonksiyon
 void frekans_analizi(char encoded_text[],char farkli_karakterler[],int frekanslar[]);   //sifrelenmis metnin frekans analizini yapan fonksiyon.
+<<<<<<< HEAD
 void huffman(char farkli_karakterler[],int frekanslar[],char farkli_karakterler_siralanmis[]);   //huffman kodlama yapan fonksiyon
 void huffman_bit_yazdirma(dugum *temp,char *code,char farkli_karakterler_siralanmis[]);//huffman agacindaki karakterleri ve huffman degerlerini yazdiran recursive fonksiyon.
 void huffman_dosya_yazdir(char encoded_text[],char farkli_karakterler_siralanmis[]);//huffman kodunu dosyaya yazan fonksiyon.
+=======
+void huffman(char farkli_karakterler[],int frekanslar[]);   //huffman kodlama yapan fonksiyon
+void huffman_bit_yazdirma(dugum *temp,char *code);//huffman agacindaki karakterleri ve huffman degerlerini yazdiran fonksiyon.
+
+>>>>>>> master
 
 int dosyanin_uzunlugu=0;    //orijinal metnin uzunlugu(byte tabanli).
 char *ileri_tampon;         //orijinal metnin tutuldugu char dizisi.
@@ -42,10 +48,15 @@ int enc_boyut;              //sifrelenmis metnin uzunlugu;
 int farkli_boyut=0;         //sifrelenmis metinde kac farkli karakter gectigi.(ayni karakterler teke düsürülüp frekansı oyle bulunmali).
 dugum *yigin[200];          //olusturulan huffman dugulerinin tutuldugu yigin.
 int yigin_boyut=0;          //yiginin anlik boyutu.
+<<<<<<< HEAD
 char binary_tokenler[127][10];
 int binary_token_boyut=0;
 int huffman_kod_uzunlugu=0;
 int huffman_sonrasi_boyut=0;
+=======
+
+
+>>>>>>> master
 
 void main()
 {
@@ -53,6 +64,7 @@ void main()
     lz77();
     lz77_dosya_yazma();
     enc_boyut= sayac * sizeof(struct token);
+<<<<<<< HEAD
 
     char encoded_text[enc_boyut+1];//+1 '\0' sonlandirma karakteri icin.
     char farkli_karakterler[enc_boyut+1];
@@ -82,6 +94,29 @@ void dosya_okuma()
     fclose(dosya);
 }
 
+=======
+    printf("\nOrijinal boyut: %d  LZ77 Encoded boyut: %d\n",dosyanin_uzunlugu, enc_boyut);
+    char encoded_text[enc_boyut+1];//+1 '\0' sonlandirma karakteri icin.
+    char farkli_karakterler[enc_boyut+1];
+    int frekanslar[enc_boyut];
+    frekans_analizi(encoded_text,farkli_karakterler,frekanslar);
+    huffman(farkli_karakterler,frekanslar);
+
+}
+
+
+void dosya_okuma()
+{
+    FILE *dosya=fopen("input.txt","r");
+    fseek(dosya, 0, SEEK_END);
+    dosyanin_uzunlugu = ftell(dosya);
+    ileri_tampon=calloc( 1, dosyanin_uzunlugu);
+    fseek(dosya, 0, SEEK_SET);
+    fread(ileri_tampon, 1, dosyanin_uzunlugu, dosya);
+    fclose(dosya);
+}
+
+>>>>>>> master
 void lz77_dosya_yazma()
 {
     FILE * f;
@@ -226,6 +261,7 @@ void frekans_analizi(char encoded_text[],char farkli_karakterler[],int frekansla
 {
     FILE *fp;
     fp = fopen("output.txt", "rb");
+<<<<<<< HEAD
 
     //şifrelenmiş dosyadan karakter okuyup encoded_text isimli char dizisine tum sifrelenmis metni atiyoruz.
     if (fp)
@@ -245,6 +281,27 @@ void frekans_analizi(char encoded_text[],char farkli_karakterler[],int frekansla
         while (EOF != c);
         fclose(fp);
 
+=======
+
+    //şifrelenmiş dosyadan karakter okuyup encoded_text isimli char dizisine tum sifrelenmis metni atiyoruz.
+    if (fp)
+    {
+        int sayac=0;
+        int c;
+        do
+        {
+            int var=0;
+            c = fgetc(fp);
+            if (EOF != c)
+            {
+                encoded_text[sayac]=c;
+                sayac++;
+            }
+        }
+        while (EOF != c);
+        fclose(fp);
+
+>>>>>>> master
     }
 
     //aynı karakterlerden tek bir karakter olacak diziye dönüştüren döngü.
@@ -313,7 +370,11 @@ void frekans_analizi(char encoded_text[],char farkli_karakterler[],int frekansla
     }
 }
 
+<<<<<<< HEAD
 void huffman(char farkli_karakterler[],int frekanslar[],char farkli_karakterler_siralanmis[])
+=======
+void huffman(char farkli_karakterler[],int frekanslar[])
+>>>>>>> master
 {
     yigin[0] = (dugum *)malloc(sizeof(dugum));
     yigin[0]->frekans = 0;
@@ -429,6 +490,7 @@ void huffman(char farkli_karakterler[],int frekanslar[],char farkli_karakterler_
     char ikili_kod[10];
     ikili_kod[0] = '\0';
     printf("\n");
+<<<<<<< HEAD
     huffman_bit_yazdirma(tree,ikili_kod,farkli_karakterler_siralanmis);
     /////////////////////////////////////////////////////////
 
@@ -480,3 +542,30 @@ void huffman_dosya_yazdir(char encoded_text[], char farkli_karakterler_siralanmi
     }
 }
 
+=======
+    huffman_bit_yazdirma(tree,ikili_kod);
+    /////////////////////////////////////////////////////////
+
+}
+
+//hufmann kodlarini yazdiran recursive fonksiyon.
+void huffman_bit_yazdirma(dugum *temp,char *code)
+{
+    if(temp->sol==NULL && temp->sag==NULL)
+    {
+        printf("%c: %s\n",temp->ch,code);
+        return;
+    }
+    int length = strlen(code);
+    char solcode[10],sagcode[10];
+    strcpy(solcode,code);
+    strcpy(sagcode,code);
+    solcode[length] = '0';
+    solcode[length+1] = '\0';
+    sagcode[length] = '1';
+    sagcode[length+1] = '\0';
+    huffman_bit_yazdirma(temp->sol,solcode);
+    huffman_bit_yazdirma(temp->sag,sagcode);
+}
+
+>>>>>>> master
