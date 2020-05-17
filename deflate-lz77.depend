@@ -5,7 +5,14 @@
 	<string.h>
 	<ctype.h>
 
-1589555047 source:c:\users\bthn0\desktop\deflate-lz77-difference\main.c
+1589672770 source:c:\users\bthn0\desktop\deflate-lz77-difference\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	<stdint.h>
+
+1589724448 source:c:\users\bthn0\desktop\deflate-lz77-difference - kopya\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
